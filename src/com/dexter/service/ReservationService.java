@@ -8,6 +8,18 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ReservationService {
+    private static ReservationService reservationService = null;
+
+    private ReservationService() {
+    }
+
+    public static ReservationService getInstance() {
+        if (null == reservationService) {
+            reservationService = new ReservationService();
+        }
+        return reservationService;
+    }
+
     Collection<IRoom> rooms = new HashSet<>();
     Collection<Reservation> reservations = new HashSet<>();
 
@@ -15,9 +27,13 @@ public class ReservationService {
         rooms.add(room);
     }
 
-    public IRoom getARoom(String roomId) {
-        Optional<IRoom> room = rooms.stream().filter(r -> roomId.equals(r.getRoomNumber())).findFirst();
+    public IRoom getARoom(String roomNumber) {
+        Optional<IRoom> room = rooms.stream().filter(r -> roomNumber.equals(r.getRoomNumber())).findFirst();
         return room.orElse(null);
+    }
+
+    public Collection<IRoom> getAllRooms() {
+        return rooms;
     }
 
     public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {

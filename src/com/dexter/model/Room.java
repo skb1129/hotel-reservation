@@ -6,13 +6,11 @@ public class Room implements IRoom {
     String roomNumber;
     Double price;
     RoomType roomType;
-    Boolean available;
 
     public Room(String roomNumber, Double price, RoomType roomType) {
         this.roomNumber = roomNumber;
         this.price = price;
         this.roomType = roomType;
-        this.available = true;
     }
 
     public String getRoomNumber() {
@@ -28,12 +26,12 @@ public class Room implements IRoom {
     }
 
     public Boolean isFree() {
-        return available;
+        return price == 0;
     }
 
     @Override
     public String toString() {
-        return String.format("Room\nroomNumber=%s\nprice=%s\nroomType=%s\navailable=%s\n", roomNumber, price, roomType, available);
+        return String.format("Room\nroomNumber=%s\nprice=%s\nroomType=%s\n", roomNumber, price, roomType);
     }
 
     @Override
