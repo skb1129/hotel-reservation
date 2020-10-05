@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AdminMenu {
+    Scanner scanner;
     AdminResource adminResource = AdminResource.getInstance();
+
+    public AdminMenu(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     public void seeAllCustomers() {
         Collection<Customer> customers = adminResource.getAllCustomers();
@@ -26,7 +31,6 @@ public class AdminMenu {
     }
 
     public void addARoom() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter room number: ");
         String roomNumber = scanner.nextLine();
         System.out.print("Enter room price: ");
@@ -37,7 +41,6 @@ public class AdminMenu {
         List<IRoom> rooms = new ArrayList<>();
         rooms.add(room);
         adminResource.addRooms(rooms);
-        scanner.close();
     }
 
     public void start() {
@@ -48,28 +51,26 @@ public class AdminMenu {
             System.out.println("3. See all Reservations");
             System.out.println("4. Add a Room");
             System.out.println("5. Back to Main Menu");
-            Scanner scanner = new Scanner(System.in);
-            int option = scanner.nextInt();
+            String option = scanner.nextLine();
             switch (option) {
-                case 1:
+                case "1":
                     seeAllCustomers();
                     break;
-                case 2:
+                case "2":
                     seeAllRooms();
                     break;
-                case 3:
+                case "3":
                     seeAllReservations();
                     break;
-                case 4:
+                case "4":
                     addARoom();
                     break;
-                case 5:
+                case "5":
                     exit = true;
                     break;
                 default:
                     System.out.println("Invalid input!");
             }
-            scanner.close();
         }
     }
 }
